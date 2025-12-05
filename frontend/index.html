@@ -2,16 +2,152 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Phishing Awareness Simulator</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Phishing Awareness Simulator</h1>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>🔒 Phishing Awareness Simulator</h1>
+            <div id="userInfo" class="user-info" style="display: none;">
+                <span id="userPoints">Points: 0</span>
+                <span id="userLevel">Level: 1</span>
+                <button id="logoutBtn" class="btn-secondary">Logout</button>
+            </div>
+        </header>
 
-    <button id="startBtn">Start Training</button>
+        <!-- Login/Register Section -->
+        <div id="authSection" class="auth-section">
+            <div class="auth-container">
+                <h2>Welcome to Phishing Awareness Training</h2>
+                <p>Learn to identify phishing attempts through gamified training</p>
+                
+                <div class="tab-buttons">
+                    <button id="loginTab" class="tab-btn active">Login</button>
+                    <button id="registerTab" class="tab-btn">Register</button>
+                </div>
 
-    <div id="questionArea" style="margin-top: 20px;">
-        <!-- Question from backend will appear here -->
+                <!-- Login Form -->
+                <form id="loginForm" class="auth-form">
+                    <input type="text" id="loginUsername" placeholder="Username" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Login</button>
+                </form>
+
+                <!-- Register Form -->
+                <form id="registerForm" class="auth-form" style="display: none;">
+                    <input type="text" id="registerUsername" placeholder="Username" required>
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <input type="password" id="registerPassword" placeholder="Password" required>
+                    <button type="submit" class="btn-primary">Register</button>
+                </form>
+
+                <div id="authMessage" class="message"></div>
+            </div>
+        </div>
+
+        <!-- Main App Section -->
+        <div id="appSection" class="app-section" style="display: none;">
+            <!-- Navigation -->
+            <nav class="nav-tabs">
+                <button class="nav-btn active" data-view="training">🎯 Training</button>
+                <button class="nav-btn" data-view="leaderboard">🏆 Leaderboard</button>
+                <button class="nav-btn" data-view="achievements">🎖️ Achievements</button>
+                <button class="nav-btn" data-view="analytics">📊 Analytics</button>
+                <button class="nav-btn" data-view="tools">🔍 Detection Tools</button>
+            </nav>
+
+            <!-- Training View -->
+            <div id="trainingView" class="view-content active">
+                <div class="training-header">
+                    <h2>Phishing Detection Training</h2>
+                    <button id="startTrainingBtn" class="btn-primary">Start New Scenario</button>
+                </div>
+
+                <div id="scenarioContainer" class="scenario-container" style="display: none;">
+                    <div class="scenario-header">
+                        <span id="scenarioType" class="badge"></span>
+                        <span id="difficultyLevel" class="badge"></span>
+                        <span id="timer" class="timer">⏱️ 0s</span>
+                    </div>
+
+                    <div id="scenarioContent" class="scenario-content">
+                        <!-- Scenario content will be injected here -->
+                    </div>
+
+                    <div class="answer-buttons">
+                        <button id="legitimateBtn" class="btn-answer btn-safe">✅ Legitimate</button>
+                        <button id="phishingBtn" class="btn-answer btn-danger">⚠️ Phishing</button>
+                    </div>
+                </div>
+
+                <div id="resultContainer" class="result-container" style="display: none;">
+                    <!-- Result feedback will be shown here -->
+                </div>
+
+                <div id="statsBar" class="stats-bar">
+                    <div class="stat-item">
+                        <span class="stat-label">Streak:</span>
+                        <span id="streakValue">0</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Accuracy:</span>
+                        <span id="accuracyValue">0%</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-label">Completed:</span>
+                        <span id="completedValue">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leaderboard View -->
+            <div id="leaderboardView" class="view-content">
+                <h2>🏆 Global Leaderboard</h2>
+                <div id="leaderboardTable" class="leaderboard-table">
+                    <!-- Leaderboard will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Achievements View -->
+            <div id="achievementsView" class="view-content">
+                <h2>🎖️ Your Achievements</h2>
+                <div id="achievementsGrid" class="achievements-grid">
+                    <!-- Achievements will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Analytics View -->
+            <div id="analyticsView" class="view-content">
+                <h2>📊 Your Analytics</h2>
+                <div id="analyticsContent" class="analytics-content">
+                    <!-- Analytics will be loaded here -->
+                </div>
+            </div>
+
+            <!-- Detection Tools View -->
+            <div id="toolsView" class="view-content">
+                <h2>🔍 Phishing Detection Tools</h2>
+                
+                <div class="tool-section">
+                    <h3>URL Analyzer</h3>
+                    <input type="text" id="urlInput" placeholder="Enter URL to analyze" class="tool-input">
+                    <button id="analyzeUrlBtn" class="btn-primary">Analyze URL</button>
+                    <div id="urlResult" class="tool-result"></div>
+                </div>
+
+                <div class="tool-section">
+                    <h3>Email Analyzer</h3>
+                    <input type="text" id="emailSender" placeholder="Sender email" class="tool-input">
+                    <input type="text" id="emailSubject" placeholder="Email subject" class="tool-input">
+                    <textarea id="emailBody" placeholder="Email body" class="tool-textarea" rows="5"></textarea>
+                    <button id="analyzeEmailBtn" class="btn-primary">Analyze Email</button>
+                    <div id="emailResult" class="tool-result"></div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="script.js"></script>
