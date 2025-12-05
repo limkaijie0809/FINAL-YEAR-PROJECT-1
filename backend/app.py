@@ -12,7 +12,8 @@ from phishing_detector import analyze_url, analyze_email_content
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.urandom(24)
 app.config['SESSION_COOKIE_SAMESITE'] = 'None'
-app.config['SESSION_COOKIE_SECURE'] = False  # Set to True in production with HTTPS
+# Set to True in production with HTTPS - currently False for development
+app.config['SESSION_COOKIE_SECURE'] = os.environ.get('FLASK_ENV') == 'production'
 CORS(app, supports_credentials=True)
 
 # Initialize database on startup
@@ -480,4 +481,6 @@ def get_all_scenarios():
     return jsonify({"scenarios": dicts_from_rows(scenarios)})
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Debug mode should only be enabled in development, not production
+    debug_mode = os.environ.get('FLASK_ENV') != 'production'
+    app.run(debug=debug_mode, host='0.0.0.0', port=5000)

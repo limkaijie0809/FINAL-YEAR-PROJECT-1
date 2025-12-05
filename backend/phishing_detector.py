@@ -5,6 +5,8 @@ from typing import Dict, List, Tuple
 # Known phishing indicators
 SUSPICIOUS_TLDS = ['.xyz', '.top', '.win', '.work', '.click', '.link', '.download']
 SUSPICIOUS_KEYWORDS = ['verify', 'urgent', 'suspended', 'locked', 'confirm', 'update', 'secure', 'account']
+
+# Trusted domains - in production, load from config file or database
 TRUSTED_DOMAINS = ['google.com', 'microsoft.com', 'amazon.com', 'github.com', 'facebook.com']
 
 def analyze_url(url: str) -> Dict:

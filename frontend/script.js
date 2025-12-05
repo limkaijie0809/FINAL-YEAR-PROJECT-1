@@ -1,5 +1,8 @@
-// Configuration
-const API_BASE = "http://127.0.0.1:5000";
+// Configuration - Update based on your deployment environment
+// For production, use environment-specific configuration
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    ? "http://127.0.0.1:5000"  // Development
+    : "/api";  // Production (assumes API is served from same origin)
 
 // State management
 let currentScenario = null;
