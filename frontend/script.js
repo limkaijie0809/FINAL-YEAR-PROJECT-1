@@ -1,8 +1,9 @@
 // Configuration - Update based on your deployment environment
-// For production, use environment-specific configuration
-const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-    ? "http://127.0.0.1:5000"  // Development
-    : "/api";  // Production (assumes API is served from same origin)
+// Support file:// by treating empty hostname as local
+const isLocalHost = ['localhost', '127.0.0.1', ''].includes(window.location.hostname);
+const API_BASE = isLocalHost
+    ? "http://127.0.0.1:5000"  // Development / file:// testing
+    : "/api";                  // Production (served from same origin)
 
 // State management
 let currentScenario = null;
